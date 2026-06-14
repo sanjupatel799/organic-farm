@@ -73,7 +73,7 @@ export default function OrdersPage() {
               <div className="mt-4 flex items-center justify-between border-t border-green-100 pt-4">
                 <span className="font-bold text-green-900">Total: {formatPrice(order.total)}</span>
                 {order.status === "PENDING" && (
-                  <button onClick={() => ordersApi.cancel(order.id).then(() => window.location.reload())}
+                  <button onClick={() => ordersApi.cancel(order.id).then(() => router.refresh())}
                     className="text-sm text-red-500 hover:text-red-600">Cancel</button>
                 )}
               </div>

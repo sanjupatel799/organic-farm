@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/auth-store";
 import { useCartStore } from "@/store/cart-store";
 import {
@@ -32,6 +32,7 @@ export default function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const pathname = usePathname();
+  const router = useRouter();
   const { isAuthenticated, user, logout } = useAuthStore();
   const { itemCount, fetchCart } = useCartStore();
 
@@ -230,7 +231,7 @@ export default function Navbar() {
               onSubmit={(e) => {
                 e.preventDefault();
                 if (searchQuery.trim()) {
-                  window.location.href = `/products?search=${encodeURIComponent(searchQuery.trim())}`;
+                  router.push(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
                 }
               }}
             >
