@@ -46,7 +46,7 @@ export function useScrollReveal(options: AnimationOptions = {}) {
 
       gsap.fromTo(
         targets,
-        { y, x, scale, opacity: 0, autoAlpha: 0 },
+        { y, x, scale, autoAlpha: 0 },
         {
           y: 0,
           x: 0,

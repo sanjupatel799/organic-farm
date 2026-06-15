@@ -145,14 +145,14 @@ export default function Carousel({
         <>
           <button
             onClick={(e) => { e.stopPropagation(); prev(); }}
-            className="absolute left-3 top-1/2 z-20 -translate-y-1/2 rounded-full bg-white/90 p-2.5 text-brown-700 shadow-lg backdrop-blur-sm transition-all hover:bg-white hover:shadow-xl hover:scale-110 active:scale-95"
+            className="absolute left-3 top-1/2 z-20 -translate-y-1/2 rounded-full bg-white/90 p-2.5 text-green-700 shadow-lg backdrop-blur-sm transition-all hover:bg-white hover:shadow-xl hover:scale-110 active:scale-95"
             aria-label="Previous"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); next(); }}
-            className="absolute right-3 top-1/2 z-20 -translate-y-1/2 rounded-full bg-white/90 p-2.5 text-brown-700 shadow-lg backdrop-blur-sm transition-all hover:bg-white hover:shadow-xl hover:scale-110 active:scale-95"
+            className="absolute right-3 top-1/2 z-20 -translate-y-1/2 rounded-full bg-white/90 p-2.5 text-green-700 shadow-lg backdrop-blur-sm transition-all hover:bg-white hover:shadow-xl hover:scale-110 active:scale-95"
             aria-label="Next"
           >
             <ChevronRight className="h-5 w-5" />

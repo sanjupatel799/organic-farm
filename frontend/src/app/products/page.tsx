@@ -223,7 +223,7 @@ function ProductsContent() {
                       key={product.id}
                       className="transition-all duration-500"
                       style={{
-                        animation: `cardFadeIn 0.5s ease-out ${i * 0.05}s both`,
+                        animation: `fadeInUp 0.5s ease-out ${i * 0.05}s both`,
                       }}
                     >
                       <ProductCard key={product.id} id={product.id} name={product.name} slug={product.slug}
@@ -254,18 +254,6 @@ function ProductsContent() {
         </div>
       </div>
 
-      <style jsx>{`
-        @keyframes cardFadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
     </>
   );
 }

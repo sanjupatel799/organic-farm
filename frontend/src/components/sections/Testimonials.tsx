@@ -130,18 +130,6 @@ export default function Testimonials() {
         </div>
       </div>
 
-      <style jsx>{`
-        @keyframes starPop {
-          from {
-            opacity: 0;
-            transform: scale(0);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1.1);
-          }
-        }
-      `}</style>
     </section>
   );
 }
