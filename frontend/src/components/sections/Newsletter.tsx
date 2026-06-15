@@ -3,10 +3,12 @@
 import { useState } from "react";
 import { Mail, ArrowRight, Check } from "lucide-react";
 import { toast } from "sonner";
+import { useScrollReveal } from "@/hooks/use-animation";
 
 export default function Newsletter() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+  const sectionRef = useScrollReveal({ y: 30 });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,7 +20,7 @@ export default function Newsletter() {
   };
 
   return (
-    <section className="bg-gradient-to-r from-green-700 to-green-600 py-16">
+    <section className="bg-gradient-to-r from-green-700 to-green-600 py-16" ref={sectionRef}>
       <div className="mx-auto max-w-2xl px-4 text-center sm:px-6 lg:px-8">
         {subscribed ? (
           <div className="animate-fade-in">
@@ -52,9 +54,9 @@ export default function Newsletter() {
               </div>
               <button
                 type="submit"
-                className="inline-flex items-center gap-2 rounded-full bg-amber-500 px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-amber-600"
+                className="inline-flex items-center gap-2 rounded-full bg-amber-500 px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-amber-600 hover:scale-105 active:scale-95"
               >
-                Subscribe <ArrowRight className="h-4 w-4" />
+                Subscribe <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </button>
             </form>
           </>

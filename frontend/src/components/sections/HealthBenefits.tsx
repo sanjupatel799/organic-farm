@@ -1,6 +1,7 @@
 "use client";
 
 import { Sprout, Droplets, Wheat } from "lucide-react";
+import { useScrollReveal } from "@/hooks/use-animation";
 
 const benefits = [
   {
@@ -42,8 +43,10 @@ const benefits = [
 ];
 
 export default function HealthBenefits() {
+  const sectionRef = useScrollReveal({ y: 30 });
+
   return (
-    <section className="py-16">
+    <section className="py-16" ref={sectionRef}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-3xl font-bold text-green-900 sm:text-4xl">Health Benefits</h2>
@@ -51,14 +54,15 @@ export default function HealthBenefits() {
         </div>
 
         <div className="mt-10 grid gap-8 md:grid-cols-3">
-          {benefits.map((benefit) => {
+          {benefits.map((benefit, i) => {
             const Icon = benefit.icon;
             return (
               <div
                 key={benefit.title}
-                className="rounded-2xl border border-green-100 bg-white p-6 transition-all hover:shadow-lg hover:shadow-green-100/50"
+                className="rounded-2xl border border-green-100 bg-white p-6 transition-all duration-300 hover:shadow-lg hover:shadow-green-100/50 hover:-translate-y-1"
+                style={{ animation: `fadeInUp 0.5s ease-out ${i * 0.12}s both` }}
               >
-                <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${benefit.color}`}>
+                <div className={`flex h-12 w-12 items-center justify-center rounded-xl transition-all group-hover:scale-110 ${benefit.color}`}>
                   <Icon className="h-6 w-6" />
                 </div>
                 <h3 className="mt-4 text-lg font-bold text-green-900">{benefit.title}</h3>

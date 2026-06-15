@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Calendar, User } from "lucide-react";
 import { blogsApi } from "@/lib/api";
+import { useScrollReveal } from "@/hooks/use-animation";
 
 export default function BlogsSection() {
   const [blogs, setBlogs] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const sectionRef = useScrollReveal({ y: 30 });
 
   useEffect(() => {
     blogsApi.getAll({ published: "true", limit: 3 }).then((data) => {
@@ -17,7 +19,7 @@ export default function BlogsSection() {
   }, []);
 
   return (
-    <section className="bg-green-50/50 py-16">
+    <section className="bg-green-50/50 py-16" ref={sectionRef}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-end justify-between">
           <div>
@@ -44,11 +46,12 @@ export default function BlogsSection() {
           </div>
         ) : (
           <div className="mt-8 grid gap-6 md:grid-cols-3">
-            {blogs.map((blog: any) => (
+            {blogs.map((blog: any, i: number) => (
               <Link
                 key={blog.id}
                 href={`/blog/${blog.slug}`}
-                className="group rounded-2xl border border-green-100 bg-white transition-all hover:border-green-200 hover:shadow-lg hover:shadow-green-100/50"
+                className="group rounded-2xl border border-green-100 bg-white transition-all duration-300 hover:border-green-200 hover:shadow-lg hover:shadow-green-100/50 hover:-translate-y-1"
+                style={{ animation: `fadeInUp 0.5s ease-out ${i * 0.1}s both` }}
               >
                 {blog.image && (
                   <div className="overflow-hidden rounded-t-2xl">

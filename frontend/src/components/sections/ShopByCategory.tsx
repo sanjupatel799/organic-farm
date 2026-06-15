@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Wheat, Droplets, Flame, Package, Apple, Droplets as Oil, Carrot } from "lucide-react";
 import { categoriesApi } from "@/lib/api";
+import { useScrollReveal } from "@/hooks/use-animation";
 
 const fallbackCategories = [
   { name: "Millets", icon: Wheat, slug: "millets", color: "bg-amber-100 text-amber-700" },
@@ -37,6 +38,7 @@ const colorMap: Record<string, string> = {
 
 export default function ShopByCategory() {
   const [categories, setCategories] = useState(fallbackCategories);
+  const sectionRef = useScrollReveal({ y: 30 });
 
   useEffect(() => {
     categoriesApi.getAll().then((data) => {
@@ -55,7 +57,7 @@ export default function ShopByCategory() {
   }, []);
 
   return (
-    <section className="bg-green-50/50 py-16">
+    <section className="bg-green-50/50 py-16" ref={sectionRef}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-3xl font-bold text-green-900 sm:text-4xl">Shop By Category</h2>
@@ -63,15 +65,16 @@ export default function ShopByCategory() {
         </div>
 
         <div className="mt-10 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-7">
-          {categories.map((cat) => {
+          {categories.map((cat, i) => {
             const Icon = cat.icon;
             return (
               <Link
                 key={cat.slug}
                 href={`/products?category=${cat.slug}`}
-                className="group flex flex-col items-center rounded-2xl border border-green-100 bg-white p-6 transition-all hover:border-green-200 hover:shadow-lg hover:shadow-green-100/50"
+                className="group flex flex-col items-center rounded-2xl border border-green-100 bg-white p-6 transition-all hover:border-green-200 hover:shadow-lg hover:shadow-green-100/50 hover:-translate-y-1 active:scale-95"
+                style={{ animation: `fadeInUp 0.4s ease-out ${i * 0.06}s both` }}
               >
-                <div className={`flex h-16 w-16 items-center justify-center rounded-xl ${cat.color}`}>
+                <div className={`flex h-16 w-16 items-center justify-center rounded-xl transition-all group-hover:scale-110 group-hover:rotate-3 ${cat.color}`}>
                   <Icon className="h-8 w-8" />
                 </div>
                 <span className="mt-3 text-sm font-semibold text-green-800 group-hover:text-green-600">
@@ -87,6 +90,13 @@ export default function ShopByCategory() {
           })}
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
     </section>
   );
 }
