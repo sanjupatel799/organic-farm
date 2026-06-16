@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/auth-store";
 import { useCartStore } from "@/store/cart-store";
+import { useHydrated } from "@/hooks/use-hydrated";
 import {
   Leaf,
   Search,
@@ -33,6 +34,7 @@ export default function Navbar() {
   const [searchQuery, setSearchQuery] = useState("");
   const pathname = usePathname();
   const router = useRouter();
+  const hydrated = useHydrated();
   const { isAuthenticated, user, logout } = useAuthStore();
   const { itemCount, fetchCart } = useCartStore();
 
@@ -82,7 +84,17 @@ export default function Navbar() {
             <Search className="h-5 w-5" />
           </button>
 
-          {isAuthenticated ? (
+          {!hydrated ? (
+            <Link
+              href="/login"
+              className="hidden rounded-full bg-green-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-green-700 sm:block"
+            >
+              <span className="flex items-center gap-1.5">
+                <User className="h-4 w-4" />
+                Login
+              </span>
+            </Link>
+          ) : isAuthenticated ? (
             <>
               <Link
                 href="/account/wishlist"
@@ -162,7 +174,24 @@ export default function Navbar() {
               </Link>
             ))}
             <hr className="border-green-100" />
-            {isAuthenticated ? (
+            {!hydrated ? (
+              <>
+                <Link
+                  href="/login"
+                  onClick={() => setMobileOpen(false)}
+                  className="block rounded-lg bg-green-600 px-3 py-2 text-center text-sm font-medium text-white"
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/register"
+                  onClick={() => setMobileOpen(false)}
+                  className="block rounded-lg border border-green-200 px-3 py-2 text-center text-sm font-medium text-green-700"
+                >
+                  Register
+                </Link>
+              </>
+            ) : isAuthenticated ? (
               <>
                 <Link
                   href="/account"
