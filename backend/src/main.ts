@@ -15,7 +15,7 @@ async function bootstrap() {
     credentials: true,
   });
 
-  // Health check at root
+  // Health check at root (also used by Railway's healthcheck)
   app.getHttpAdapter().get('/', (req: any, res: any) => {
     res.json({
       status: 'ok',
@@ -38,6 +38,11 @@ async function bootstrap() {
         analytics: '/api/analytics',
       },
     });
+  });
+
+  // Railway healthcheck endpoint
+  app.getHttpAdapter().get('/api/health', (req: any, res: any) => {
+    res.json({ status: 'ok', timestamp: new Date().toISOString() });
   });
 
   app.setGlobalPrefix('api');
