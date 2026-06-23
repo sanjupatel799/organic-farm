@@ -7,6 +7,10 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "via.placeholder.com" },
     ],
   },
+  // Tell Turbopack where the project root is to avoid multiple lockfile warnings
+  turbopack: {
+    root: process.cwd(),
+  },
   // API rewrites: in production, set NEXT_PUBLIC_API_URL on Vercel to your backend URL.
   // In local dev without NEXT_PUBLIC_API_URL, requests to /api/* are proxied to the NestJS backend.
   async rewrites() {
