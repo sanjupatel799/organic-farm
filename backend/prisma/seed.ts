@@ -1,13 +1,9 @@
 import "dotenv/config";
 import * as bcrypt from "bcryptjs";
-
-async function getPrisma() {
-  const mod: any = await import("../generated/prisma/client.js");
-  return new mod.PrismaClient({});
-}
+import { PrismaClient } from "@prisma/client";
 
 async function main() {
-  const prisma = await getPrisma();
+  const prisma = new PrismaClient();
 
   console.log("🌱 Seeding database...");
 
